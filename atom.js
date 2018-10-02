@@ -2,9 +2,9 @@ var Orbitals=require('./orbitals.js'); //(local)
 var Position=require('./position.js'); //(local)
 
 /*Classe Atom*/
-function Atom(z){
+function Atom(z,a){
   //z: protons (número zatòmic)
-  this.z=parseInt(z);
+  this.z=parseInt(z)||0;
   if(typeof(z) != 'number'){ console.error(z);throw "Nombre atòmic no és un número";}
   if(z<0)                  { console.error(z);throw "Nombre atòmic negatiu"; }
   if(z>118)                { console.error(z);throw "Element z="+z+" desconegut"; }
@@ -146,8 +146,12 @@ function Atom(z){
       {symbol:"Og", name:"Oganesson",   mass:294      }, //118
   ][z];
 
-  //neutrons
-  this.n=0;
+  //neutrons TODO
+  //genera  un nombre aleatori en funció de l'abundància dels isòtops per determinar: 
+  // numero de neutrons
+  // massa de l'àtom
+  a=a||parseInt(this.element.mass); //si el nombre màssic no es determina, agafa la massa
+  this.n=a-z;
 
   //posició
   this.position=new Position();
@@ -158,12 +162,12 @@ Atom.prototype.mass=function(){return this.element.mass};
 
 //forma llegible
 Atom.prototype.toString=function(){
-  console.log(this.element.symbol, this.element.name, "("+this.z+" protons, "+this.mass()+" Da)");
-  //this.position.toString();
+  console.log("Z="+this.z+", N="+this.n+", A="+(this.n+this.z)+" ("+this.mass()+" Da),",this.element.symbol,this.element.name);
   //this.orbitals.toString();
+  //this.position.toString();
 };
 
 /*tests*/ /**/
 for(var i=1;i<119;i++){
-  var a=new Atom(i);
+  var a=new Atom(i);a.toString();
 }

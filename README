@@ -1,5 +1,11 @@
 # atoms
-Simulador de matèria amb l'objectiu d'observar l'aparició de vida
+Simulador de matèria i reaccions químiques
 
 ## Objectiu 0: implementar conceptes físics i químics
 ## Objectiu 1: recrear l'experiment d'Urei i Miller (1956)
+
+## links utils
+https://www.ptable.com/?lang=ca
+http://www.ciaaw.org/
+
+## treballant ara mateix en: "isotops.js"
