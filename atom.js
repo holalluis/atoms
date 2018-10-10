@@ -1,5 +1,5 @@
-var Orbitals=require('./orbitals.js');
-var Punt=require('./punt.js');
+let Orbitals=require('./orbitals.js');
+let Punt=require('./punt.js');
 
 /*Classe Atom*/
 function Atom(z, n, position){
@@ -159,7 +159,7 @@ Atom.prototype.mass=function(){return this.element.mass};
 
 //forma llegible
 Atom.prototype.toString=function(){
-  var str="Atom(Z="+this.z+", N="+this.n+", M="+this.mass()+" Da, "+
+  let str="Atom(Z="+this.z+", N="+this.n+", M="+this.mass()+" Da, "+
     this.element.symbol+" "+this.element.name+", "+
     this.position.toString()+
   ")";
@@ -169,7 +169,7 @@ Atom.prototype.toString=function(){
 
 /*tests*/
 /*
-for(var i=1;i<20;i++){
-  var a=new Atom(i); console.log(a.toString());
+for(let i=1;i<20;i++){
+  let a=new Atom(i); console.log(a.toString());
 }
 */

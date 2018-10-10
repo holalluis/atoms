@@ -32,23 +32,23 @@ Vector.prototype.prod_vec=function(vec){ return new Vector(this.y*vec.z-this.z*v
 
 //modul i normalització
 Vector.prototype.modul=function()     { return Math.sqrt(this.x*this.x+this.y*this.y+this.z*this.z);} //llargada/magnitud d'un vector
-Vector.prototype.normalitza=function(){ var m=this.modul(); return this.divideix(m);                } //normalitzar un vector per la seva llargada
+Vector.prototype.normalitza=function(){ let m=this.modul(); return this.divideix(m);                } //normalitzar un vector per la seva llargada
 
 /*tests*/
 /*
-var a=new Vector(2,0,1);
-var b=new Vector(1,-1,3);
-var c=a.suma(b);       console.log(c); //vector
-var c=a.resta(b);      console.log(c); //vector
-var c=a.multiplica(2); console.log(c); //vector
-var c=a.divideix(2);   console.log(c); //vector
-var c=a.prod_esc(b);   console.log(c); //float
-var c=a.prod_vec(b);   console.log(c); //vector
-var c=a.modul();       console.log(c); //float
-var c=a.normalitza();  console.log(c); //vector
-var a = new Vector(3,4,12);
+let a=new Vector(2,0,1);
+let b=new Vector(1,-1,3);
+let c=a.suma(b);       console.log(c); //vector
+let c=a.resta(b);      console.log(c); //vector
+let c=a.multiplica(2); console.log(c); //vector
+let c=a.divideix(2);   console.log(c); //vector
+let c=a.prod_esc(b);   console.log(c); //float
+let c=a.prod_vec(b);   console.log(c); //vector
+let c=a.modul();       console.log(c); //float
+let c=a.normalitza();  console.log(c); //vector
+let a = new Vector(3,4,12);
 console.log(a.modul());
-var a=new Vector(1,-1,4);
-var b=new Vector(1,1,-2);
+let a=new Vector(1,-1,4);
+let b=new Vector(1,1,-2);
 console.log(a.prod_vec(b));
 */

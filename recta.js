@@ -1,5 +1,5 @@
-var Punt   = require('./punt.js');
-var Vector = require('./vector.js');
+let Punt   = require('./punt.js');
+let Vector = require('./vector.js');
 
 /* classe Recta */
 function Recta(punt, vector_director){
@@ -19,6 +19,6 @@ Recta.prototype.toString=function(){
 
 /*tests*/
 /*
-var re=new Recta(new Punt(1,2,3), new Vector(3,4,5)); //recta
+let re=new Recta(new Punt(1,2,3), new Vector(3,4,5)); //recta
 console.log(re.toString());
 */

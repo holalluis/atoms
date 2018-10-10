@@ -5,8 +5,8 @@ necessitem un punt "p" i dos vectors "v1" i "v2", tals que
 π = p + k1·v1 + k2·v2
 
 */
-var Punt   = require('./punt.js');
-var Vector = require('./vector.js');
+let Punt   = require('./punt.js');
+let Vector = require('./vector.js');
 
 function Pla(punt,vector1,vector2){
   this.punt=punt||new Punt(0,0,0);
@@ -41,8 +41,8 @@ Pla.prototype.toString=function(){
 
 /*tests*/
 /*
-var p=new Pla(new Punt(1,2,3), new Vector(1,-1,4), new Vector(1,1,-2));
+let p=new Pla(new Punt(1,2,3), new Vector(1,-1,4), new Vector(1,1,-2));
 console.log(p.toString());
-var p=new Pla(new Punt(10,0,0), new Vector(-10,10,0), new Vector(-10,0,10));
+let p=new Pla(new Punt(10,0,0), new Vector(-10,10,0), new Vector(-10,0,10));
 console.log(p.toString());
 */

@@ -4,6 +4,7 @@
   Electrons:     2   2   6   2   6   2  10    6   2  10    6   2  14   10    6   2  14   10    6   2
   Acumulats:     2   4  10  12  18  20  30   36  38  48   54  56  70   80   86  88 102  112  118 120
   Gasos nobles:
+    He == 2   | 1s2
     Ne == 10  | 1s2 2s2 2p6
     Ar == 18  | 1s2 2s2 2p6 3s2 3p6
     Kr == 36  | 1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6
@@ -11,7 +12,6 @@
     Rn == 86  | 1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6
     Og == 118 | 1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p6
 */
-
 function Orbitals(e){
   //nombre electrons
   this.e=parseInt(e);
@@ -58,15 +58,15 @@ module.exports=Orbitals;
 //regla de hund: omple orbitals amb 'e' electrons
 Orbitals.prototype.omple_orbitals=function(){
   //electrons per assignar
-  var e=this.e;
+  let e=this.e;
 
   //omple una sola capa "s" "p" "d" "f"
   function omple_capa(capa){
     if(e<=0)return;
     //mira primer electró de cada orbital
-    for(var i=0;i<capa.length;i++){if(e>0&&capa[i][0]==0){capa[i][0]=1;e--;if(e<=0){return;}}}
+    for(let i=0;i<capa.length;i++){if(e>0&&capa[i][0]==0){capa[i][0]=1;e--;if(e<=0){return;}}}
     //mira segon electró de cada orbital
-    for(var i=0;i<capa.length;i++){if(e>0&&capa[i][1]==0){capa[i][1]=1;e--;if(e<=0){return;}}
+    for(let i=0;i<capa.length;i++){if(e>0&&capa[i][1]==0){capa[i][1]=1;e--;if(e<=0){return;}}
     }
   }
 
@@ -93,18 +93,33 @@ Orbitals.prototype.omple_orbitals=function(){
   omple_capa(this.nivells.n8.s);
 };
 
-//obtenir electrons de valencia TODO
+//obtenir electrons de valencia
 Orbitals.prototype.valencia=function(){
-  var nivell=0;
-  var capa="s";
-  var electrons=2;
-  return { nivell, capa, electrons};
+  //els checkpoints son el nombre d'electrons dels gasos nobles, pq tenen octet
+  let checkpoints=[0,2,4,10,18,36,54,86,118]; //Ne Ar Kr Xe Rn Og
+
+  //comprova si ja té octet
+  if(checkpoints.indexOf(this.e)+1){return 0;} //càrrega 0
+
+  //comprova si està entre octets
+  for(let i=0;i<7;i++){
+    if(checkpoints[i]<this.e && this.e<checkpoints[i+1]){
+      let sobren = this.e - checkpoints[i];
+      let falten = this.e - checkpoints[i+1],
+      return [
+      ];
+    }
+  }
+
+  return false;
 };
 
 //mostra forma llegible
 Orbitals.prototype.toString=function(){
-  var str="";
-  str+=('Estructura electrònica ('+this.e+' electrons):\n');
+  let str="";
+  str+=('Orbitals('+this.e+' electrons):\n');
+  str+=(" València: "+this.valencia()+"\n");
+  return str;
   str+=("  1s  - "+this.nivells.n1.s[0][0]+" "+this.nivells.n1.s[0][1]+'\n');
   str+=("  2s  - "+this.nivells.n2.s[0][0]+" "+this.nivells.n2.s[0][1]+'\n');if(this.e<= 4)return str;
   str+=("  2p1 - "+this.nivells.n2.p[0][0]+" "+this.nivells.n2.p[0][1]+'\n');
@@ -168,15 +183,16 @@ Orbitals.prototype.toString=function(){
 };
 
 /*tests*/
-/*
-for(var i=90;i<=120;i++){
-  var or = new Orbitals(i);
-  console.log(or.toString());
-}
-var or=new Orbitals(10);  console.log(or.toString()); //Ne
-var or=new Orbitals(18);  console.log(or.toString()); //Ar
-var or=new Orbitals(36);  console.log(or.toString()); //Kr
-var or=new Orbitals(54);  console.log(or.toString()); //Xe
-var or=new Orbitals(86);  console.log(or.toString()); //Rn
-var or=new Orbitals(118); console.log(or.toString()); //Og
-*/
+  /*
+  */
+  let or;
+  for(let i=0;i<=20;i++){
+    or = new Orbitals(i);
+    console.log(or.toString());
+  }
+  or=new Orbitals(10);  console.log(or.toString()); //Ne
+  or=new Orbitals(18);  console.log(or.toString()); //Ar
+  or=new Orbitals(36);  console.log(or.toString()); //Kr
+  or=new Orbitals(54);  console.log(or.toString()); //Xe
+  or=new Orbitals(86);  console.log(or.toString()); //Rn
+  or=new Orbitals(118); console.log(or.toString()); //Og

@@ -13,9 +13,9 @@ module.exports=Punt;
 
 //distància entre 2 punts
 Punt.prototype.distancia=function(punt){
-  var x=punt.x-this.x;
-  var y=punt.y-this.y;
-  var z=punt.z-this.z;
+  let x=punt.x-this.x;
+  let y=punt.y-this.y;
+  let z=punt.z-this.z;
   return Math.sqrt(x*x + y*y + z*z);
 };
 
@@ -26,7 +26,7 @@ Punt.prototype.toString=function(){
 
 /*tests*/
 /*
-var p=new Punt(3,4,12);
+let p=new Punt(3,4,12);
 console.log(p.toString());
 console.log(p.distancia(new Punt(0,0,0)))
 */
