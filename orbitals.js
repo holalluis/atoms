@@ -12,47 +12,116 @@
     Rn == 86  | 1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6
     Og == 118 | 1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p6
 */
-function Orbitals(e){
-  //nombre electrons
-  this.e=parseInt(e);
-  if(typeof(e) != 'number'){ console.error(e);throw "Nombre d'electrons no és un número";}
-  if(e<0)                  { console.error(e);throw "Nombre d'electrons negatiu"; }
 
-  //estructura capes
-  this.nivells={ //n,m,l,s: nivell, capa, orbital, spin
-    "n1" :{ 
-      "s":[                      [0,0],                      ], },
-    "n2" :{
-      "s":[                      [0,0],                      ],
-      "p":[               [0,0], [0,0], [0,0],               ], },
-    "n3" :{
-      "s":[                      [0,0],                      ],
-      "p":[               [0,0], [0,0], [0,0],               ],
-      "d":[        [0,0], [0,0], [0,0], [0,0], [0,0],        ], },
-    "n4" :{
-      "s":[                      [0,0],                      ],
-      "p":[               [0,0], [0,0], [0,0]                ],
-      "d":[        [0,0], [0,0], [0,0], [0,0], [0,0],        ],
-      "f":[ [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], ], },
-    "n5" :{
-      "s":[                      [0,0],                      ],
-      "p":[               [0,0], [0,0], [0,0]                ],
-      "d":[        [0,0], [0,0], [0,0], [0,0], [0,0],        ],
-      "f":[ [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], ], },
-    "n6" :{
-      "s":[                      [0,0],                      ],
-      "p":[               [0,0], [0,0], [0,0],               ],
-      "d":[        [0,0], [0,0], [0,0], [0,0], [0,0],        ], },
-    "n7" :{
-      "s":[                      [0,0],                      ],
-      "p":[               [0,0], [0,0], [0,0],               ], },
-    "n8" :{
-      "s":[                      [0,0],                      ], },
-  };
-  this.omple_orbitals();
-};
+class Orbitals{
+  constructor(e){
+    //nombre electrons
+    this.e=parseInt(e);
+    if(typeof(e) != 'number'){ console.error(e);throw "Nombre d'electrons no és un número";}
+    if(e<0)                  { console.error(e);throw "Nombre d'electrons negatiu"; }
 
-//export (require)
+    //estructura capes
+    this.nivells={ //n,m,l,s: nivell, capa, orbital, spin
+      "n1" :{ 
+        "s":[                      [0,0],                      ], },
+      "n2" :{
+        "s":[                      [0,0],                      ],
+        "p":[               [0,0], [0,0], [0,0],               ], },
+      "n3" :{
+        "s":[                      [0,0],                      ],
+        "p":[               [0,0], [0,0], [0,0],               ],
+        "d":[        [0,0], [0,0], [0,0], [0,0], [0,0],        ], },
+      "n4" :{
+        "s":[                      [0,0],                      ],
+        "p":[               [0,0], [0,0], [0,0]                ],
+        "d":[        [0,0], [0,0], [0,0], [0,0], [0,0],        ],
+        "f":[ [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], ], },
+      "n5" :{
+        "s":[                      [0,0],                      ],
+        "p":[               [0,0], [0,0], [0,0]                ],
+        "d":[        [0,0], [0,0], [0,0], [0,0], [0,0],        ],
+        "f":[ [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], ], },
+      "n6" :{
+        "s":[                      [0,0],                      ],
+        "p":[               [0,0], [0,0], [0,0],               ],
+        "d":[        [0,0], [0,0], [0,0], [0,0], [0,0],        ], },
+      "n7" :{
+        "s":[                      [0,0],                      ],
+        "p":[               [0,0], [0,0], [0,0],               ], },
+      "n8" :{
+        "s":[                      [0,0],                      ], },
+    };
+    this.omple_orbitals();
+  }
+
+  toString(){
+    let str="";
+    str+=('Orbitals('+this.e+' electrons):\n');
+    str+=(" València: "+this.valencia()+"\n");
+    return str;
+    str+=("  1s  - "+this.nivells.n1.s[0][0]+" "+this.nivells.n1.s[0][1]+'\n');
+    str+=("  2s  - "+this.nivells.n2.s[0][0]+" "+this.nivells.n2.s[0][1]+'\n');if(this.e<= 4)return str;
+    str+=("  2p1 - "+this.nivells.n2.p[0][0]+" "+this.nivells.n2.p[0][1]+'\n');
+    str+=("  2p2 - "+this.nivells.n2.p[1][0]+" "+this.nivells.n2.p[1][1]+'\n');
+    str+=("  2p3 - "+this.nivells.n2.p[2][0]+" "+this.nivells.n2.p[2][1]+'\n');if(this.e<=10)return str;
+    str+=("  3s  - "+this.nivells.n3.s[0][0]+" "+this.nivells.n3.s[0][1]+'\n');if(this.e<=12)return str;
+    str+=("  3p1 - "+this.nivells.n3.p[0][0]+" "+this.nivells.n3.p[0][1]+'\n');
+    str+=("  3p2 - "+this.nivells.n3.p[1][0]+" "+this.nivells.n3.p[1][1]+'\n');
+    str+=("  3p3 - "+this.nivells.n3.p[2][0]+" "+this.nivells.n3.p[2][1]+'\n');if(this.e<=18)return str;
+    str+=("  4s  - "+this.nivells.n4.s[0][0]+" "+this.nivells.n4.s[0][1]+'\n');if(this.e<=20)return str;
+    str+=("  3d1 - "+this.nivells.n3.d[0][0]+" "+this.nivells.n3.d[0][1]+'\n');
+    str+=("  3d2 - "+this.nivells.n3.d[1][0]+" "+this.nivells.n3.d[1][1]+'\n');
+    str+=("  3d3 - "+this.nivells.n3.d[2][0]+" "+this.nivells.n3.d[2][1]+'\n');
+    str+=("  3d4 - "+this.nivells.n3.d[3][0]+" "+this.nivells.n3.d[3][1]+'\n');
+    str+=("  3d5 - "+this.nivells.n3.d[4][0]+" "+this.nivells.n3.d[4][1]+'\n');if(this.e<=30)return str;
+    str+=("  4p1 - "+this.nivells.n4.p[0][0]+" "+this.nivells.n4.p[0][1]+'\n');
+    str+=("  4p2 - "+this.nivells.n4.p[1][0]+" "+this.nivells.n4.p[1][1]+'\n');
+    str+=("  4p3 - "+this.nivells.n4.p[2][0]+" "+this.nivells.n4.p[2][1]+'\n');if(this.e<=36)return str;
+    str+=("  5s  - "+this.nivells.n5.s[0][0]+" "+this.nivells.n5.s[0][1]+'\n');if(this.e<=38)return str;
+    str+=("  4d1 - "+this.nivells.n4.d[0][0]+" "+this.nivells.n4.d[0][1]+'\n');
+    str+=("  4d2 - "+this.nivells.n4.d[1][0]+" "+this.nivells.n4.d[1][1]+'\n');
+    str+=("  4d3 - "+this.nivells.n4.d[2][0]+" "+this.nivells.n4.d[2][1]+'\n');
+    str+=("  4d4 - "+this.nivells.n4.d[3][0]+" "+this.nivells.n4.d[3][1]+'\n');
+    str+=("  4d5 - "+this.nivells.n4.d[4][0]+" "+this.nivells.n4.d[4][1]+'\n');if(this.e<=48)return str;
+    str+=("  5p1 - "+this.nivells.n5.p[0][0]+" "+this.nivells.n5.p[0][1]+'\n');
+    str+=("  5p2 - "+this.nivells.n5.p[1][0]+" "+this.nivells.n5.p[1][1]+'\n');
+    str+=("  5p3 - "+this.nivells.n5.p[2][0]+" "+this.nivells.n5.p[2][1]+'\n');if(this.e<=54)return str;
+    str+=("  6s  - "+this.nivells.n6.s[0][0]+" "+this.nivells.n6.s[0][1]+'\n');if(this.e<=56)return str;
+    str+=("  4f1 - "+this.nivells.n4.f[0][0]+" "+this.nivells.n4.f[0][1]+'\n');
+    str+=("  4f2 - "+this.nivells.n4.f[1][0]+" "+this.nivells.n4.f[1][1]+'\n');
+    str+=("  4f3 - "+this.nivells.n4.f[2][0]+" "+this.nivells.n4.f[2][1]+'\n');
+    str+=("  4f4 - "+this.nivells.n4.f[3][0]+" "+this.nivells.n4.f[3][1]+'\n');
+    str+=("  4f5 - "+this.nivells.n4.f[4][0]+" "+this.nivells.n4.f[4][1]+'\n');
+    str+=("  4f6 - "+this.nivells.n4.f[5][0]+" "+this.nivells.n4.f[5][1]+'\n');
+    str+=("  4f7 - "+this.nivells.n4.f[6][0]+" "+this.nivells.n4.f[6][1]+'\n');if(this.e<=70)return str;
+    str+=("  5d1 - "+this.nivells.n5.d[0][0]+" "+this.nivells.n5.d[0][1]+'\n');
+    str+=("  5d2 - "+this.nivells.n5.d[1][0]+" "+this.nivells.n5.d[1][1]+'\n');
+    str+=("  5d3 - "+this.nivells.n5.d[2][0]+" "+this.nivells.n5.d[2][1]+'\n');
+    str+=("  5d4 - "+this.nivells.n5.d[3][0]+" "+this.nivells.n5.d[3][1]+'\n');
+    str+=("  5d5 - "+this.nivells.n5.d[4][0]+" "+this.nivells.n5.d[4][1]+'\n');if(this.e<=80)return str;
+    str+=("  6p1 - "+this.nivells.n6.p[0][0]+" "+this.nivells.n6.p[0][1]+'\n');
+    str+=("  6p2 - "+this.nivells.n6.p[1][0]+" "+this.nivells.n6.p[1][1]+'\n');
+    str+=("  6p3 - "+this.nivells.n6.p[2][0]+" "+this.nivells.n6.p[2][1]+'\n');if(this.e<=86)return str;
+    str+=("  7s  - "+this.nivells.n7.s[0][0]+" "+this.nivells.n7.s[0][1]+'\n');if(this.e<=88)return str;
+    str+=("  5f1 - "+this.nivells.n5.f[0][0]+" "+this.nivells.n5.f[0][1]+'\n');
+    str+=("  5f2 - "+this.nivells.n5.f[1][0]+" "+this.nivells.n5.f[1][1]+'\n');
+    str+=("  5f3 - "+this.nivells.n5.f[2][0]+" "+this.nivells.n5.f[2][1]+'\n');
+    str+=("  5f4 - "+this.nivells.n5.f[3][0]+" "+this.nivells.n5.f[3][1]+'\n');
+    str+=("  5f5 - "+this.nivells.n5.f[4][0]+" "+this.nivells.n5.f[4][1]+'\n');
+    str+=("  5f6 - "+this.nivells.n5.f[5][0]+" "+this.nivells.n5.f[5][1]+'\n');
+    str+=("  5f7 - "+this.nivells.n5.f[6][0]+" "+this.nivells.n5.f[6][1]+'\n');if(this.e<=102)return str;
+    str+=("  6d1 - "+this.nivells.n6.d[0][0]+" "+this.nivells.n6.d[0][1]+'\n');
+    str+=("  6d2 - "+this.nivells.n6.d[1][0]+" "+this.nivells.n6.d[1][1]+'\n');
+    str+=("  6d3 - "+this.nivells.n6.d[2][0]+" "+this.nivells.n6.d[2][1]+'\n');
+    str+=("  6d4 - "+this.nivells.n6.d[3][0]+" "+this.nivells.n6.d[3][1]+'\n');
+    str+=("  6d5 - "+this.nivells.n6.d[4][0]+" "+this.nivells.n6.d[4][1]+'\n');if(this.e<=112)return str;
+    str+=("  7p1 - "+this.nivells.n7.p[0][0]+" "+this.nivells.n7.p[0][1]+'\n');
+    str+=("  7p2 - "+this.nivells.n7.p[1][0]+" "+this.nivells.n7.p[1][1]+'\n');
+    str+=("  7p3 - "+this.nivells.n7.p[2][0]+" "+this.nivells.n7.p[2][1]+'\n');if(this.e<=118)return str;
+    str+=("  8s  - "+this.nivells.n8.s[0][0]+" "+this.nivells.n8.s[0][1]+'\n');
+  }
+}
+
 module.exports=Orbitals;
 
 //regla de hund: omple orbitals amb 'e' electrons
@@ -105,94 +174,12 @@ Orbitals.prototype.valencia=function(){
   for(let i=0;i<7;i++){
     if(checkpoints[i]<this.e && this.e<checkpoints[i+1]){
       let sobren = this.e - checkpoints[i];
-      let falten = this.e - checkpoints[i+1],
+      let falten = this.e - checkpoints[i+1];
       return [
+        sobren, falten
       ];
     }
   }
 
   return false;
 };
-
-//mostra forma llegible
-Orbitals.prototype.toString=function(){
-  let str="";
-  str+=('Orbitals('+this.e+' electrons):\n');
-  str+=(" València: "+this.valencia()+"\n");
-  return str;
-  str+=("  1s  - "+this.nivells.n1.s[0][0]+" "+this.nivells.n1.s[0][1]+'\n');
-  str+=("  2s  - "+this.nivells.n2.s[0][0]+" "+this.nivells.n2.s[0][1]+'\n');if(this.e<= 4)return str;
-  str+=("  2p1 - "+this.nivells.n2.p[0][0]+" "+this.nivells.n2.p[0][1]+'\n');
-  str+=("  2p2 - "+this.nivells.n2.p[1][0]+" "+this.nivells.n2.p[1][1]+'\n');
-  str+=("  2p3 - "+this.nivells.n2.p[2][0]+" "+this.nivells.n2.p[2][1]+'\n');if(this.e<=10)return str;
-  str+=("  3s  - "+this.nivells.n3.s[0][0]+" "+this.nivells.n3.s[0][1]+'\n');if(this.e<=12)return str;
-  str+=("  3p1 - "+this.nivells.n3.p[0][0]+" "+this.nivells.n3.p[0][1]+'\n');
-  str+=("  3p2 - "+this.nivells.n3.p[1][0]+" "+this.nivells.n3.p[1][1]+'\n');
-  str+=("  3p3 - "+this.nivells.n3.p[2][0]+" "+this.nivells.n3.p[2][1]+'\n');if(this.e<=18)return str;
-  str+=("  4s  - "+this.nivells.n4.s[0][0]+" "+this.nivells.n4.s[0][1]+'\n');if(this.e<=20)return str;
-  str+=("  3d1 - "+this.nivells.n3.d[0][0]+" "+this.nivells.n3.d[0][1]+'\n');
-  str+=("  3d2 - "+this.nivells.n3.d[1][0]+" "+this.nivells.n3.d[1][1]+'\n');
-  str+=("  3d3 - "+this.nivells.n3.d[2][0]+" "+this.nivells.n3.d[2][1]+'\n');
-  str+=("  3d4 - "+this.nivells.n3.d[3][0]+" "+this.nivells.n3.d[3][1]+'\n');
-  str+=("  3d5 - "+this.nivells.n3.d[4][0]+" "+this.nivells.n3.d[4][1]+'\n');if(this.e<=30)return str;
-  str+=("  4p1 - "+this.nivells.n4.p[0][0]+" "+this.nivells.n4.p[0][1]+'\n');
-  str+=("  4p2 - "+this.nivells.n4.p[1][0]+" "+this.nivells.n4.p[1][1]+'\n');
-  str+=("  4p3 - "+this.nivells.n4.p[2][0]+" "+this.nivells.n4.p[2][1]+'\n');if(this.e<=36)return str;
-  str+=("  5s  - "+this.nivells.n5.s[0][0]+" "+this.nivells.n5.s[0][1]+'\n');if(this.e<=38)return str;
-  str+=("  4d1 - "+this.nivells.n4.d[0][0]+" "+this.nivells.n4.d[0][1]+'\n');
-  str+=("  4d2 - "+this.nivells.n4.d[1][0]+" "+this.nivells.n4.d[1][1]+'\n');
-  str+=("  4d3 - "+this.nivells.n4.d[2][0]+" "+this.nivells.n4.d[2][1]+'\n');
-  str+=("  4d4 - "+this.nivells.n4.d[3][0]+" "+this.nivells.n4.d[3][1]+'\n');
-  str+=("  4d5 - "+this.nivells.n4.d[4][0]+" "+this.nivells.n4.d[4][1]+'\n');if(this.e<=48)return str;
-  str+=("  5p1 - "+this.nivells.n5.p[0][0]+" "+this.nivells.n5.p[0][1]+'\n');
-  str+=("  5p2 - "+this.nivells.n5.p[1][0]+" "+this.nivells.n5.p[1][1]+'\n');
-  str+=("  5p3 - "+this.nivells.n5.p[2][0]+" "+this.nivells.n5.p[2][1]+'\n');if(this.e<=54)return str;
-  str+=("  6s  - "+this.nivells.n6.s[0][0]+" "+this.nivells.n6.s[0][1]+'\n');if(this.e<=56)return str;
-  str+=("  4f1 - "+this.nivells.n4.f[0][0]+" "+this.nivells.n4.f[0][1]+'\n');
-  str+=("  4f2 - "+this.nivells.n4.f[1][0]+" "+this.nivells.n4.f[1][1]+'\n');
-  str+=("  4f3 - "+this.nivells.n4.f[2][0]+" "+this.nivells.n4.f[2][1]+'\n');
-  str+=("  4f4 - "+this.nivells.n4.f[3][0]+" "+this.nivells.n4.f[3][1]+'\n');
-  str+=("  4f5 - "+this.nivells.n4.f[4][0]+" "+this.nivells.n4.f[4][1]+'\n');
-  str+=("  4f6 - "+this.nivells.n4.f[5][0]+" "+this.nivells.n4.f[5][1]+'\n');
-  str+=("  4f7 - "+this.nivells.n4.f[6][0]+" "+this.nivells.n4.f[6][1]+'\n');if(this.e<=70)return str;
-  str+=("  5d1 - "+this.nivells.n5.d[0][0]+" "+this.nivells.n5.d[0][1]+'\n');
-  str+=("  5d2 - "+this.nivells.n5.d[1][0]+" "+this.nivells.n5.d[1][1]+'\n');
-  str+=("  5d3 - "+this.nivells.n5.d[2][0]+" "+this.nivells.n5.d[2][1]+'\n');
-  str+=("  5d4 - "+this.nivells.n5.d[3][0]+" "+this.nivells.n5.d[3][1]+'\n');
-  str+=("  5d5 - "+this.nivells.n5.d[4][0]+" "+this.nivells.n5.d[4][1]+'\n');if(this.e<=80)return str;
-  str+=("  6p1 - "+this.nivells.n6.p[0][0]+" "+this.nivells.n6.p[0][1]+'\n');
-  str+=("  6p2 - "+this.nivells.n6.p[1][0]+" "+this.nivells.n6.p[1][1]+'\n');
-  str+=("  6p3 - "+this.nivells.n6.p[2][0]+" "+this.nivells.n6.p[2][1]+'\n');if(this.e<=86)return str;
-  str+=("  7s  - "+this.nivells.n7.s[0][0]+" "+this.nivells.n7.s[0][1]+'\n');if(this.e<=88)return str;
-  str+=("  5f1 - "+this.nivells.n5.f[0][0]+" "+this.nivells.n5.f[0][1]+'\n');
-  str+=("  5f2 - "+this.nivells.n5.f[1][0]+" "+this.nivells.n5.f[1][1]+'\n');
-  str+=("  5f3 - "+this.nivells.n5.f[2][0]+" "+this.nivells.n5.f[2][1]+'\n');
-  str+=("  5f4 - "+this.nivells.n5.f[3][0]+" "+this.nivells.n5.f[3][1]+'\n');
-  str+=("  5f5 - "+this.nivells.n5.f[4][0]+" "+this.nivells.n5.f[4][1]+'\n');
-  str+=("  5f6 - "+this.nivells.n5.f[5][0]+" "+this.nivells.n5.f[5][1]+'\n');
-  str+=("  5f7 - "+this.nivells.n5.f[6][0]+" "+this.nivells.n5.f[6][1]+'\n');if(this.e<=102)return str;
-  str+=("  6d1 - "+this.nivells.n6.d[0][0]+" "+this.nivells.n6.d[0][1]+'\n');
-  str+=("  6d2 - "+this.nivells.n6.d[1][0]+" "+this.nivells.n6.d[1][1]+'\n');
-  str+=("  6d3 - "+this.nivells.n6.d[2][0]+" "+this.nivells.n6.d[2][1]+'\n');
-  str+=("  6d4 - "+this.nivells.n6.d[3][0]+" "+this.nivells.n6.d[3][1]+'\n');
-  str+=("  6d5 - "+this.nivells.n6.d[4][0]+" "+this.nivells.n6.d[4][1]+'\n');if(this.e<=112)return str;
-  str+=("  7p1 - "+this.nivells.n7.p[0][0]+" "+this.nivells.n7.p[0][1]+'\n');
-  str+=("  7p2 - "+this.nivells.n7.p[1][0]+" "+this.nivells.n7.p[1][1]+'\n');
-  str+=("  7p3 - "+this.nivells.n7.p[2][0]+" "+this.nivells.n7.p[2][1]+'\n');if(this.e<=118)return str;
-  str+=("  8s  - "+this.nivells.n8.s[0][0]+" "+this.nivells.n8.s[0][1]+'\n');
-};
-
-/*tests*/
-  /*
-  */
-  let or;
-  for(let i=0;i<=20;i++){
-    or = new Orbitals(i);
-    console.log(or.toString());
-  }
-  or=new Orbitals(10);  console.log(or.toString()); //Ne
-  or=new Orbitals(18);  console.log(or.toString()); //Ar
-  or=new Orbitals(36);  console.log(or.toString()); //Kr
-  or=new Orbitals(54);  console.log(or.toString()); //Xe
-  or=new Orbitals(86);  console.log(or.toString()); //Rn
-  or=new Orbitals(118); console.log(or.toString()); //Og
