@@ -1,10 +1,9 @@
-# atoms
-Simulador de matèria i reaccions químiques
+# atoms : simulador de matèria i reaccions químiques
 
-## Objectiu 0: implementar conceptes físics i químics
-## Objectiu 1: recrear l'experiment d'Urei i Miller (1956)
+- Objectiu 0: implementar conceptes físics i químics
+- Objectiu 1: recrear l'experiment d'Urei i Miller (1956)
 
-per comprovar que tot va funcionant, executar:
+- Per comprovar que tot funciona, executar:
 ```
   node tests.js
 ```
@@ -49,3 +48,5 @@ Següents coses a implementar
 ----------------------
   isotops (=assignar número diferent de neutrons en funció de l'atzar relacionat amb l'abundància natural observada)
 
+----------------------
+vim: ft=markdown
