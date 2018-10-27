@@ -64,4 +64,3 @@ let Atom     = require('./atom.js');
   console.log(at2.orbitals.valencia);
   //test octet entre at1 i at2
   at1.test_octet(at2);
-  at2.test_octet(at1);
