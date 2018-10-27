@@ -5,9 +5,9 @@ Simulador de matèria i reaccions químiques
 ## Objectiu 1: recrear l'experiment d'Urei i Miller (1956)
 
 per comprovar que tot va funcionant, executar:
-'''
+```
   node tests.js
-'''
+```
 
 ## links utils
 https://www.ptable.com/?lang=ca
@@ -49,5 +49,3 @@ Següents coses a implementar
 ----------------------
   isotops (=assignar número diferent de neutrons en funció de l'atzar relacionat amb l'abundància natural observada)
 
-----------------------
-vim:ft=markdown
