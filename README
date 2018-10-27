@@ -15,29 +15,29 @@
 ## Següents coses a implementar
 
 1. Es poden fer
-  [OK] electrons de valència
-  [OK] buscar manera d'automatitzar unit tests
-  [OK] neutrons
-  [OK] posicio
-  estat materia: solid liquid gas
-  espai
-    tamany (esferes?)
-    distàncies de van der waals
-  reaccions
-    enllaços químics
-    ponts hidrogen
+  - [OK] electrons de valència
+  - [OK] buscar manera d'automatitzar unit tests
+  - [OK] neutrons
+  - [OK] posicio
+  - estat materia: solid liquid gas
+  - espai
+    - tamany (esferes?)
+    - distàncies de van der waals
+  - reaccions
+    - enllaços químics
+    - ponts hidrogen
 
 2. Encara no es poden fer
-  energia
-    electricitat
-    magnetisme
-  temps
-    moviment
-    gravetat
-  mecànica estadística
-  temperatura
-  llum / fotons
-  gui
+  - energia
+    - electricitat
+    - magnetisme
+  - temps
+    - moviment
+    - gravetat
+  - mecànica estadística
+  - temperatura
+  - llum / fotons
+  - gui
 
 3. No importa si es fa més endavant
   isotops (=assignar número diferent de neutrons en funció de l'atzar relacionat amb l'abundància natural observada)
