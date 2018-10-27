@@ -51,14 +51,68 @@ class Orbitals{
       "n8" :{
         "s":[                      [0,0],                      ], },
     };
+
     this.omple_orbitals();
+  }
+
+  //regla de hund: omple orbitals amb 'e' electrons
+  omple_orbitals(){
+    //electrons per assignar
+    let e=this.e;
+
+    //omple una sola capa "s" "p" "d" "f"
+    function omple_capa(capa){
+      if(e<=0)return;
+      //mira primer electró de cada orbital
+      for(let i=0;i<capa.length;i++){if(e>0&&capa[i][0]==0){capa[i][0]=1;e--;if(e<=0){return;}}}
+      //mira segon electró de cada orbital
+      for(let i=0;i<capa.length;i++){if(e>0&&capa[i][1]==0){capa[i][1]=1;e--;if(e<=0){return;}}
+      }
+    }
+
+    //odre capes: 1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p 7s 5f 6d 7p 8s
+    omple_capa(this.nivells.n1.s);
+    omple_capa(this.nivells.n2.s);
+    omple_capa(this.nivells.n2.p);
+    omple_capa(this.nivells.n3.s);
+    omple_capa(this.nivells.n3.p);
+    omple_capa(this.nivells.n4.s);
+    omple_capa(this.nivells.n3.d);
+    omple_capa(this.nivells.n4.p);
+    omple_capa(this.nivells.n5.s);
+    omple_capa(this.nivells.n4.d);
+    omple_capa(this.nivells.n5.p);
+    omple_capa(this.nivells.n6.s);
+    omple_capa(this.nivells.n4.f);
+    omple_capa(this.nivells.n5.d);
+    omple_capa(this.nivells.n6.p);
+    omple_capa(this.nivells.n7.s);
+    omple_capa(this.nivells.n5.f);
+    omple_capa(this.nivells.n6.d);
+    omple_capa(this.nivells.n7.p);
+    omple_capa(this.nivells.n8.s);
+  }
+
+  //obtenir electrons de valencia
+  get valencia(){
+    //checkpoints: electrons dels gasos nobles (tenen octet)
+    let checkpoints=[0,2,4,10,18,36,54,86,118]; //Ne Ar Kr Xe Rn Og
+    //comprova si té octet
+    if(checkpoints.indexOf(this.e)+1){return {octet:true}}
+    //comprova si està entre octets
+    for(let i=0;i<7;i++){
+      if(checkpoints[i]<this.e && this.e<checkpoints[i+1]){
+        let octets={  prev: checkpoints[i], post: checkpoints[i+1]};
+        let opcions={ donar:this.e - octets.prev, captar:octets.post - this.e};
+        return { octet:false, electrons:this.e, octets, opcions};
+      }
+    }
+    throw 'error a get valencia e='+this.e;
   }
 
   toString(){
     let str="";
-    str+=('Orbitals('+this.e+' electrons):\n');
-    str+=(" València: "+this.valencia()+"\n");
-    return str;
+    console.log(this);
     str+=("  1s  - "+this.nivells.n1.s[0][0]+" "+this.nivells.n1.s[0][1]+'\n');
     str+=("  2s  - "+this.nivells.n2.s[0][0]+" "+this.nivells.n2.s[0][1]+'\n');if(this.e<= 4)return str;
     str+=("  2p1 - "+this.nivells.n2.p[0][0]+" "+this.nivells.n2.p[0][1]+'\n');
@@ -119,67 +173,8 @@ class Orbitals{
     str+=("  7p2 - "+this.nivells.n7.p[1][0]+" "+this.nivells.n7.p[1][1]+'\n');
     str+=("  7p3 - "+this.nivells.n7.p[2][0]+" "+this.nivells.n7.p[2][1]+'\n');if(this.e<=118)return str;
     str+=("  8s  - "+this.nivells.n8.s[0][0]+" "+this.nivells.n8.s[0][1]+'\n');
+    return str;
   }
 }
 
 module.exports=Orbitals;
-
-//regla de hund: omple orbitals amb 'e' electrons
-Orbitals.prototype.omple_orbitals=function(){
-  //electrons per assignar
-  let e=this.e;
-
-  //omple una sola capa "s" "p" "d" "f"
-  function omple_capa(capa){
-    if(e<=0)return;
-    //mira primer electró de cada orbital
-    for(let i=0;i<capa.length;i++){if(e>0&&capa[i][0]==0){capa[i][0]=1;e--;if(e<=0){return;}}}
-    //mira segon electró de cada orbital
-    for(let i=0;i<capa.length;i++){if(e>0&&capa[i][1]==0){capa[i][1]=1;e--;if(e<=0){return;}}
-    }
-  }
-
-  //odre capes: 1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p 7s 5f 6d 7p 8s
-  omple_capa(this.nivells.n1.s);
-  omple_capa(this.nivells.n2.s);
-  omple_capa(this.nivells.n2.p);
-  omple_capa(this.nivells.n3.s);
-  omple_capa(this.nivells.n3.p);
-  omple_capa(this.nivells.n4.s);
-  omple_capa(this.nivells.n3.d);
-  omple_capa(this.nivells.n4.p);
-  omple_capa(this.nivells.n5.s);
-  omple_capa(this.nivells.n4.d);
-  omple_capa(this.nivells.n5.p);
-  omple_capa(this.nivells.n6.s);
-  omple_capa(this.nivells.n4.f);
-  omple_capa(this.nivells.n5.d);
-  omple_capa(this.nivells.n6.p);
-  omple_capa(this.nivells.n7.s);
-  omple_capa(this.nivells.n5.f);
-  omple_capa(this.nivells.n6.d);
-  omple_capa(this.nivells.n7.p);
-  omple_capa(this.nivells.n8.s);
-};
-
-//obtenir electrons de valencia
-Orbitals.prototype.valencia=function(){
-  //els checkpoints son el nombre d'electrons dels gasos nobles, pq tenen octet
-  let checkpoints=[0,2,4,10,18,36,54,86,118]; //Ne Ar Kr Xe Rn Og
-
-  //comprova si ja té octet
-  if(checkpoints.indexOf(this.e)+1){return 0;} //càrrega 0
-
-  //comprova si està entre octets
-  for(let i=0;i<7;i++){
-    if(checkpoints[i]<this.e && this.e<checkpoints[i+1]){
-      let sobren = this.e - checkpoints[i];
-      let falten = this.e - checkpoints[i+1];
-      return [
-        sobren, falten
-      ];
-    }
-  }
-
-  return false;
-};

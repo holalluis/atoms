@@ -5,11 +5,15 @@ el pla π necessita un punt "p" i dos vectors "v1" i "v2", tals que
   π = p + k1·v1 + k2·v2
 
 on k1 i k2 són escalars
+
+depen de:
+  - Punt
+  - Vector
 */
 
 class Pla{
   constructor(punt,vector1,vector2){
-    this.punt=punt||new Punt(0,0,0);
+    this.punt   =punt   ||new Punt(0,0,0);   //punt del pla
     this.vector1=vector1||new Vector(1,0,0); //vector generador 1
     this.vector2=vector2||new Vector(0,1,0); //vector generador 2
 
@@ -26,12 +30,7 @@ class Pla{
     };
   }
 
-  toString(){
-    return "Pla("+this.punt+",normal="+this.normal+",D="+this.formula.D+")";
-  }
-
-  distancia_punt(punt){
-    //distancia d'un punt a un pla
+  distancia_punt(punt){ //distancia d'un punt a un pla
     //TODO
   }
 }

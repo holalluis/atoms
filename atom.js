@@ -1,5 +1,11 @@
-let Orbitals=require('./orbitals.js');
-let Punt=require('./punt.js');
+/*
+  classe Atom 3D
+  depen de:
+    - Orbital
+    - Punt
+*/
+let Orbitals = require('./orbitals.js');
+let Punt     = require('./punt.js');
 
 class Atom {
   constructor(z, n, position){
@@ -9,16 +15,8 @@ class Atom {
     if(z>118)              { console.error(z);throw "Element z="+z+" desconegut"; }
     this.z=z||0;
 
-    //nombre e: electrons
-    this.e=z;
-    this.orbitals=new Orbitals(this.e);
-
-    //posició de l'àtom
-    this.position=position||new Punt(0,0,0);
-
-    //símbol,nom, propietats
-    //https://www.ptable.com/?lang=ca#)
-    //http://www.ciaaw.org/atomic-weights.htm CIAAW. Isotopic compositions of the elements 2017.
+    //símbol,nom, propietats, massa
+    //https://www.ptable.com/?lang=ca# http://www.ciaaw.org/atomic-weights.htm CIAAW. Isotopic compositions of the elements 2017.
     //"mass" és la mitjana ponderada entre isòtops
     this.element=[
       //fila1
@@ -149,20 +147,59 @@ class Atom {
         {symbol:"Og", name:"Oganesson",   mass:294      }, //118
     ][z];
 
-    //neutrons i nombre màssic TODO
-    this.n=n || Math.round(this.element.mass)-this.z;
-    this.a=this.z+this.n;
-  }
+    //NEUTRONS
+    this.n=n||0;
+    if(this.n==0)this.n=Math.round(this.element.mass)-this.z;
 
-  //nombre màssic A: de moment, retorna element.mass
+    //ELECTRONS
+    this.orbitals=new Orbitals(this.z); //inicia amb z electrons
+
+    //POSICIÓ
+    this.position=position||new Punt(0,0,0);
+  };
+
+  //càrrega elèctrica
+  get carrega(){ return this.z - this.orbitals.e; }
+  set carrega(value) {
+    this.orbitals.e = this.z - value;
+    this.orbitals.omple_orbitals();
+  };
+
+  //nombre màssic A: de moment retorna element.mass TBD
   get mass(){return this.element.mass};
 
-  toString(){
-    let str="Atom(Z="+this.z+", N="+this.n+", M="+this.mass+" Da, "+
-      this.element.symbol+" "+this.element.name+", "+
-      this.position.toString()+
-    ")";
-    str+='\n'+this.orbitals.toString();
-    return str;
+  //pot l'àtom obtenir octet si s'ajunta amb un altre àtom?
+  test_octet(atom){
+    console.log(`\ntest octet entre (${this.element.symbol}, ${atom.element.symbol}):`);
+
+    //si algun ja té octet no interaccionaran
+    if(this.orbitals.valencia.octet){ console.log(`${this.element.symbol}, q=${this.carrega}) ja té octet (${this.orbitals.e} electrons)`); return false; }
+    if(atom.orbitals.valencia.octet){ console.log(`${atom.element.symbol}, q=${atom.carrega}) ja té octet (${atom.orbitals.e} electrons)`); return false; }
+
+    //comprova opcions
+    let opcions=[];
+
+    //opció 1: atom1 pot donar a atom2
+    if(this.orbitals.valencia.opcions.donar == atom.orbitals.valencia.opcions.captar){
+      let donats = this.orbitals.valencia.opcions.donar;
+      opcions.push(donats);
+    }
+
+    //opció 2: atom1 pot captar de atom2
+    if(this.orbitals.valencia.opcions.captar == atom.orbitals.valencia.opcions.donar){
+      let donats = -this.orbitals.valencia.opcions.captar;
+      opcions.push(donats);
+    }
+
+    //torna el nombre d'electrons que atom1 dóna
+    //per exemple [1,-7] vol dir que àtom1 pot donar 1 electró o captar-ne 7 de àtom2
+
+    if(opcions.length==0) opcions=false;
+
+    console.log(`${this.element.symbol} pot donar a ${atom.element.symbol} els següents electrons:`);
+    console.log(opcions)
+    return opcions;
   };
 }
+
+module.exports=Atom;
