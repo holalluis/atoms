@@ -2,7 +2,6 @@
 
 - Objectiu 0: implementar conceptes físics i químics
 - Objectiu 1: recrear l'experiment d'Urei i Miller (1956)
-
 - Per comprovar que tot funciona, executar:
 ```
   node tests.js
@@ -13,20 +12,32 @@
 - http://www.ciaaw.org/
 
 ## Següents coses a implementar
-
 ### 1. Es poden fer
-  - [OK] electrons de valència
-  - [OK] buscar manera d'automatitzar unit tests
-  - [OK] neutrons
-  - [OK] posicio
-  - estat materia: solid liquid gas
+  - electrons de valència
+  - radi de cada àtom
+  - promoció d'electrons i hibridació d'orbitals sp, sp2 i sp3
+  - TRPECV: teoria de repulsió dels parells d'electrons de la capa de valència.
+    - parells d'electrons no enllaçants com a el N a |NH3 apreten els hidrogens cap avall
+
+    -   -
+    O = O 
+    -   -
+
+  - enllaç ionic: metall + no-metall: forma xarxes iòniques (no molècules separades)
+    - NaCl, MgCl2, KCl
+  - enllaç covalent: no-metall + no-metall
+  - enllaç metàl·lic
+      Na+ e-  Na+ e-  Na+
+      e-  Na+ e-  Na+ e- 
+      Na+ e-  Na+ e-  Na+
+  - forces dipol dipol (van der waals) (deltes de càrrega)
+  - forces de london (dipol instantani / dipol induït)
+  - enllaços d'hidrogen
+
+  - estat materia: solid liquid gas:
   - espai
     - tamany (esferes?)
     - distàncies de van der waals
-  - reaccions
-    - enllaços químics
-    - ponts hidrogen
-
 ### 2. Encara no es poden fer
   - energia
     - electricitat
@@ -38,9 +49,7 @@
   - temperatura
   - llum / fotons
   - gui
-
 ### 3. No importa si es fa més endavant
   - isotops (=assignar número diferent de neutrons en funció de l'atzar relacionat amb l'abundància natural observada)
-
 
 vim: ft=markdown

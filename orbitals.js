@@ -52,7 +52,7 @@ class Orbitals{
         "s":[                      [0,0],                      ], },
     };
 
-    this.omple_orbitals();
+    this.nivell_valencia=this.omple_orbitals();
   }
 
   //regla de hund: omple orbitals amb 'e' electrons
@@ -66,48 +66,69 @@ class Orbitals{
       //mira primer electró de cada orbital
       for(let i=0;i<capa.length;i++){if(e>0&&capa[i][0]==0){capa[i][0]=1;e--;if(e<=0){return;}}}
       //mira segon electró de cada orbital
-      for(let i=0;i<capa.length;i++){if(e>0&&capa[i][1]==0){capa[i][1]=1;e--;if(e<=0){return;}}
-      }
+      for(let i=0;i<capa.length;i++){if(e>0&&capa[i][1]==0){capa[i][1]=1;e--;if(e<=0){return;}}}
     }
 
     //odre capes: 1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p 7s 5f 6d 7p 8s
-    omple_capa(this.nivells.n1.s);
-    omple_capa(this.nivells.n2.s);
-    omple_capa(this.nivells.n2.p);
-    omple_capa(this.nivells.n3.s);
-    omple_capa(this.nivells.n3.p);
-    omple_capa(this.nivells.n4.s);
-    omple_capa(this.nivells.n3.d);
-    omple_capa(this.nivells.n4.p);
-    omple_capa(this.nivells.n5.s);
-    omple_capa(this.nivells.n4.d);
-    omple_capa(this.nivells.n5.p);
-    omple_capa(this.nivells.n6.s);
-    omple_capa(this.nivells.n4.f);
-    omple_capa(this.nivells.n5.d);
-    omple_capa(this.nivells.n6.p);
-    omple_capa(this.nivells.n7.s);
-    omple_capa(this.nivells.n5.f);
-    omple_capa(this.nivells.n6.d);
-    omple_capa(this.nivells.n7.p);
-    omple_capa(this.nivells.n8.s);
+    //retorna la capa de valència (la més externa amb electrons)
+    omple_capa(this.nivells.n1.s);if(e<=0)return 1;
+    omple_capa(this.nivells.n2.s);if(e<=0)return 2;
+    omple_capa(this.nivells.n2.p);if(e<=0)return 2;
+    omple_capa(this.nivells.n3.s);if(e<=0)return 3;
+    omple_capa(this.nivells.n3.p);if(e<=0)return 3;
+    omple_capa(this.nivells.n4.s);if(e<=0)return 4;
+    omple_capa(this.nivells.n3.d);if(e<=0)return 4;
+    omple_capa(this.nivells.n4.p);if(e<=0)return 4;
+    omple_capa(this.nivells.n5.s);if(e<=0)return 5;
+    omple_capa(this.nivells.n4.d);if(e<=0)return 5;
+    omple_capa(this.nivells.n5.p);if(e<=0)return 5;
+    omple_capa(this.nivells.n6.s);if(e<=0)return 6;
+    omple_capa(this.nivells.n4.f);if(e<=0)return 6;
+    omple_capa(this.nivells.n5.d);if(e<=0)return 6;
+    omple_capa(this.nivells.n6.p);if(e<=0)return 6;
+    omple_capa(this.nivells.n7.s);if(e<=0)return 7;
+    omple_capa(this.nivells.n5.f);if(e<=0)return 7;
+    omple_capa(this.nivells.n6.d);if(e<=0)return 7;
+    omple_capa(this.nivells.n7.p);if(e<=0)return 7;
+    omple_capa(this.nivells.n8.s);if(e<=0)return 8;
   }
 
   //obtenir electrons de valencia
   get valencia(){
+    let string = "";
+    let nivell = this.nivells['n'+this.nivell_valencia];
+    let electrons_valencia = 0;
+    let octet=false;
+    let octets={};  //octets propers
+    let opcions={}; //opcions per obtenir octet
+
     //checkpoints: electrons dels gasos nobles (tenen octet)
     let checkpoints=[0,2,4,10,18,36,54,86,118]; //Ne Ar Kr Xe Rn Og
-    //comprova si té octet
-    if(checkpoints.indexOf(this.e)+1){return {octet:true}}
+
+    //comprova si ja té octet
+    if(checkpoints.indexOf(this.e)+1) octet=true;
+
+    //construeix string "2s2 2p4"
+    Object.keys(nivell).forEach(capa=>{
+      let electrons=0;
+      nivell[capa].forEach(orbital=>{ electrons+=orbital[0]+orbital[1];});   
+      string+=" "+this.nivell_valencia+capa+electrons;
+      electrons_valencia += electrons;
+    });
+    //elimina el primer espai
+    string=string.substring(1);
+
     //comprova si està entre octets
-    for(let i=0;i<7;i++){
-      if(checkpoints[i]<this.e && this.e<checkpoints[i+1]){
-        let octets={  prev: checkpoints[i], post: checkpoints[i+1]};
-        let opcions={ donar:this.e - octets.prev, captar:octets.post - this.e};
-        return { octet:false, electrons:this.e, octets, opcions};
+    if(octet==false){
+      for(let i=0;i<7;i++){
+        if(checkpoints[i]<this.e && this.e<checkpoints[i+1]){
+          octets={  prev: checkpoints[i], post: checkpoints[i+1]};
+          opcions={ donar:this.e - octets.prev, captar:octets.post - this.e};
+          break;
+        }
       }
     }
-    throw 'error a get valencia e='+this.e;
+    return { octet, electrons_totals:this.e, electrons_valencia, string, octets, opcions};
   }
 
   toString(){

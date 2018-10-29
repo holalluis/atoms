@@ -196,8 +196,9 @@ class Atom {
 
     if(opcions.length==0) opcions=false;
 
-    console.log(`${this.element.symbol} pot donar a ${atom.element.symbol} els següents electrons:`);
+    console.log(`"${this.element.symbol}" pot donar a "${atom.element.symbol}" els següents electrons:`);
     console.log(opcions)
+    console.log(`Es formaria la molècula "${this.element.symbol}${atom.element.symbol}"`)
     return opcions;
   };
 }

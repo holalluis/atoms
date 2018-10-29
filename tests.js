@@ -57,10 +57,25 @@ let Atom     = require('./atom.js');
 
 /* atom.js */
   //crea 2 àtoms
-  let at1=new Atom(11); console.log(at1);
-  let at2=new Atom(17); console.log(at2);
+  let at1=new Atom(11); console.log(at1); //Na
+  let at2=new Atom(17); console.log(at2); //Cl
   //at1.carrega++; //augmenta la càrrega (equivalent a perdre un electró)
   console.log(at1.orbitals.valencia);
   console.log(at2.orbitals.valencia);
+
   //test octet entre at1 i at2
   at1.test_octet(at2);
+
+  /*
+  let H =new Atom(1);  console.log(H .orbitals.valencia);
+  let B =new Atom(5);  console.log(B .orbitals.valencia);
+  let C =new Atom(6);  console.log(C .orbitals.valencia);
+  let N =new Atom(7);  console.log(N .orbitals.valencia);
+  let O =new Atom(8);  console.log(O .orbitals.valencia);
+  let F =new Atom(9);  console.log(F .orbitals.valencia);
+  let Cl=new Atom(17); console.log(Cl.orbitals.valencia);
+  */
+  let Br=new Atom(35);
+  console.log(Br);
+  console.log(Br.orbitals.toString());
+  console.log(Br.orbitals.valencia);
