@@ -13,31 +13,33 @@
 
 ## Següents coses a implementar
 ### 1. Es poden fer
-  - electrons de valència
-  - radi de cada àtom
-  - promoció d'electrons i hibridació d'orbitals sp, sp2 i sp3
-  - TRPECV: teoria de repulsió dels parells d'electrons de la capa de valència.
-    - parells d'electrons no enllaçants com a el N a |NH3 apreten els hidrogens cap avall
+  - [ARA] electrons de valència
 
-    -   -
-    O = O 
-    -   -
+  * ÀTOMS SOLS
+    * radi: buscar fòrmula
+      - radi atòmic
+      - radi iònic
+      - tamany (esferes?)
+      - distàncies de van der waals?
+    - canvi estat: sòlid, líquid, gas
+    - promoció d'electrons i hibridació d'orbitals sp, sp2 i sp3.
 
-  - enllaç ionic: metall + no-metall: forma xarxes iòniques (no molècules separades)
-    - NaCl, MgCl2, KCl
-  - enllaç covalent: no-metall + no-metall
-  - enllaç metàl·lic
-      Na+ e-  Na+ e-  Na+
-      e-  Na+ e-  Na+ e- 
-      Na+ e-  Na+ e-  Na+
-  - forces dipol dipol (van der waals) (deltes de càrrega)
-  - forces de london (dipol instantani / dipol induït)
-  - enllaços d'hidrogen
+  * ENLLAÇOS
+    - enllaç ionic: metall + no-metall: forma xarxes iòniques (no molècules separades).
+      - NaCl, MgCl2, KCl.
+    - enllaç covalent: no-metall + no-metall.
+    - enllaç metàl·lic.
+        Na+ e-  Na+ e-  Na+.
+        e-  Na+ e-  Na+ e- 
+        Na+ e-  Na+ e-  Na+
+    - forces dipol dipol (van der waals) (deltes de càrrega)
+    - forces de london (dipol instantani / dipol induït)
+    - enllaços d'hidrogen
+    - entalpies de formació, dissociació, ionització, canvi d'estat.
+      - energia de Red
+    - TRPECV: teoria de repulsió dels parells d'electrons de la capa de valència.
+      - parells d'electrons no enllaçants com a el N a |NH3 apreten els hidrogens cap avall.
 
-  - estat materia: solid liquid gas:
-  - espai
-    - tamany (esferes?)
-    - distàncies de van der waals
 ### 2. Encara no es poden fer
   - energia
     - electricitat

@@ -162,7 +162,7 @@ class Atom {
   get carrega(){ return this.z - this.orbitals.e; }
   set carrega(value) {
     this.orbitals.e = this.z - value;
-    this.orbitals.omple_orbitals();
+    this.orbitals.nivell_valencia=this.orbitals.omple_orbitals();
   };
 
   //nombre màssic A: de moment retorna element.mass TBD
