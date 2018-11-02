@@ -1,5 +1,5 @@
-# atoms : simulador de matèria i reaccions químiques
-
+# atoms : simulador de partícules
+- En desenvolupament des d'octubre de 2018
 - Objectiu 0: implementar conceptes físics i químics
 - Objectiu 1: recrear l'experiment d'Urei i Miller (1956)
 - Per comprovar que tot funciona, executar:
@@ -13,10 +13,11 @@
 
 ## Següents coses a implementar
 ### 1. Es poden fer
-  - [ARA] electrons de valència
+  - [ara] electrons de valència
+  - [ara] promoció electrons 
 
   * ÀTOMS SOLS
-    * radi: buscar fòrmula
+    * radi: buscar fòrmula en funció d'electrons protons i neutrons
       - radi atòmic
       - radi iònic
       - tamany (esferes?)
@@ -25,30 +26,31 @@
     - promoció d'electrons i hibridació d'orbitals sp, sp2 i sp3.
 
   * ENLLAÇOS
-    - enllaç ionic: metall + no-metall: forma xarxes iòniques (no molècules separades).
-      - NaCl, MgCl2, KCl.
+    - enllaç iònic: metall + no-metall: xarxes iòniques (no molècules separades).
+      - exemples: NaCl, MgCl2, KCl.
     - enllaç covalent: no-metall + no-metall.
     - enllaç metàl·lic.
-        Na+ e-  Na+ e-  Na+.
-        e-  Na+ e-  Na+ e- 
-        Na+ e-  Na+ e-  Na+
+      ```
+      Na+ e-  Na+ e-  Na+
+      e-  Na+ e-  Na+ e- 
+      Na+ e-  Na+ e-  Na+
+      ```
     - forces dipol dipol (van der waals) (deltes de càrrega)
-    - forces de london (dipol instantani / dipol induït)
+    - forces de london (dipol instantani / dipol induït, dèbils)
     - enllaços d'hidrogen
     - entalpies de formació, dissociació, ionització, canvi d'estat.
       - energia de Red
     - TRPECV: teoria de repulsió dels parells d'electrons de la capa de valència.
-      - parells d'electrons no enllaçants com a el N a |NH3 apreten els hidrogens cap avall.
+      - e.g. parells d'electrons no enllaçants com a el N a |NH3 apreten els hidrogens cap avall.
 
 ### 2. Encara no es poden fer
   - energia
-    - electricitat
-    - magnetisme
+    - forces elèctriques (coulomb)
+    - forces magnètiques
+    - temperatura, boltzmann, mecànica estadística
   - temps
     - moviment
     - gravetat
-  - mecànica estadística
-  - temperatura
   - llum / fotons
   - gui
 ### 3. No importa si es fa més endavant

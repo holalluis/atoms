@@ -10,9 +10,9 @@ let Punt     = require('./punt.js');
 class Atom {
   constructor(z, n, position){
     //nombre zatòmic: protons
-    if(typeof(z)!='number'){ console.error(z);throw "Nombre atòmic no és un número";}
-    if(z<0)                { console.error(z);throw "Nombre atòmic negatiu"; }
-    if(z>118)              { console.error(z);throw "Element z="+z+" desconegut"; }
+    if(typeof(z)!='number') throw "Nombre atòmic no és un número";
+    if(z<=0) throw "Nombre atòmic "+z+" il·legal";
+    if(z>118) throw "Element z="+z+" desconegut";
     this.z=z||0;
 
     //símbol,nom, propietats, massa
@@ -158,13 +158,6 @@ class Atom {
     this.position=position||new Punt(0,0,0);
   };
 
-  //càrrega elèctrica
-  get carrega(){ return this.z - this.orbitals.e; }
-  set carrega(value) {
-    this.orbitals.e = this.z - value;
-    this.orbitals.nivell_valencia=this.orbitals.omple_orbitals();
-  };
-
   //nombre màssic A: de moment retorna element.mass TBD
   get mass(){return this.element.mass};
 
@@ -173,33 +166,51 @@ class Atom {
     console.log(`\ntest octet entre (${this.element.symbol}, ${atom.element.symbol}):`);
 
     //si algun ja té octet no interaccionaran
-    if(this.orbitals.valencia.octet){ console.log(`${this.element.symbol}, q=${this.carrega}) ja té octet (${this.orbitals.e} electrons)`); return false; }
-    if(atom.orbitals.valencia.octet){ console.log(`${atom.element.symbol}, q=${atom.carrega}) ja té octet (${atom.orbitals.e} electrons)`); return false; }
+    if(this.orbitals.octet){ console.log(`${this.element.symbol}, q=${this.carrega}) ja té octet (${this.orbitals.e} electrons)`); return false; }
+    if(atom.orbitals.octet){ console.log(`${atom.element.symbol}, q=${atom.carrega}) ja té octet (${atom.orbitals.e} electrons)`); return false; }
 
     //comprova opcions
     let opcions=[];
+    let opcions_1 = this.orbitals.octets_propers.opcions;
+    let opcions_2 = atom.orbitals.octets_propers.opcions;
 
     //opció 1: atom1 pot donar a atom2
-    if(this.orbitals.valencia.opcions.donar == atom.orbitals.valencia.opcions.captar){
-      let donats = this.orbitals.valencia.opcions.donar;
+    if(opcions_1.donar == opcions_2.captar){
+      let donats = opcions_1.donar;
       opcions.push(donats);
     }
 
     //opció 2: atom1 pot captar de atom2
-    if(this.orbitals.valencia.opcions.captar == atom.orbitals.valencia.opcions.donar){
-      let donats = -this.orbitals.valencia.opcions.captar;
+    if(opcions_1.captar == opcions_2.donar){
+      let donats = - opcions_1.captar;
       opcions.push(donats);
     }
 
     //torna el nombre d'electrons que atom1 dóna
     //per exemple [1,-7] vol dir que àtom1 pot donar 1 electró o captar-ne 7 de àtom2
-
     if(opcions.length==0) opcions=false;
 
     console.log(`"${this.element.symbol}" pot donar a "${atom.element.symbol}" els següents electrons:`);
     console.log(opcions)
     console.log(`Es formaria la molècula "${this.element.symbol}${atom.element.symbol}"`)
     return opcions;
+  };
+
+  //càrrega elèctrica TODO
+  get carrega(){ return this.z - this.orbitals.e; }
+  set carrega(value) {
+    let e_antics = this.orbitals.e; //electrons antics
+    let e_nous   = this.z - value;  //nou número electrons
+    let guany    = e_nous - e_antics; //guany d'electrons
+    if(guany==0) return;
+    if(guany>0){
+      //intenta guanyar electrons
+      for(let i=0;i<guany;i++) this.orbitals.guanya_electro();
+    }else{
+      //intenta perdre electrons
+      let guany_abs=Math.abs(guany);
+      for(let i=0;i<guany_abs;i++) this.orbitals.perd_electro();
+    }
   };
 }
 
