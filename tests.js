@@ -87,3 +87,4 @@ let Atom     = require('./atom.js');
   print('Q='+at.carrega);
   print(at.orbitals.toString());
 
+  process.exit();

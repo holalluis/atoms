@@ -1,7 +1,7 @@
 /*
-  classe Atom 3D
-  depen de:
-    - Orbital
+  classe Atom
+  depèn de:
+    - Orbitals
     - Punt
 */
 let Orbitals = require('./orbitals.js');
@@ -9,7 +9,7 @@ let Punt     = require('./punt.js');
 
 class Atom {
   constructor(z, n, position){
-    //nombre zatòmic: protons
+    //PROTONS. Nombre zatòmic
     if(typeof(z)!='number') throw "Nombre atòmic no és un número";
     if(z<=0) throw "Nombre atòmic "+z+" il·legal";
     if(z>118) throw "Element z="+z+" desconegut";
@@ -158,12 +158,12 @@ class Atom {
     this.position=position||new Punt(0,0,0);
   };
 
-  //nombre màssic A: de moment retorna element.mass TBD
-  get mass(){return this.element.mass};
+  //nombre màssic A
+  get mass(){return this.z + this.n;};
 
   //pot l'àtom obtenir octet si s'ajunta amb un altre àtom?
   test_octet(atom){
-    console.log(`\ntest octet entre (${this.element.symbol}, ${atom.element.symbol}):`);
+    console.log(`Test octet entre (${this.element.symbol}, ${atom.element.symbol}):`);
 
     //si algun ja té octet no interaccionaran
     if(this.orbitals.octet){ console.log(`${this.element.symbol}, q=${this.carrega}) ja té octet (${this.orbitals.e} electrons)`); return false; }
@@ -188,7 +188,7 @@ class Atom {
 
     //torna el nombre d'electrons que atom1 dóna
     //per exemple [1,-7] vol dir que àtom1 pot donar 1 electró o captar-ne 7 de àtom2
-    if(opcions.length==0) opcions=false;
+    if(opcions.length==0) return false;
 
     console.log(`"${this.element.symbol}" pot donar a "${atom.element.symbol}" els següents electrons:`);
     console.log(opcions)
@@ -196,11 +196,11 @@ class Atom {
     return opcions;
   };
 
-  //càrrega elèctrica TODO
+  //get set càrrega elèctrica
   get carrega(){ return this.z - this.orbitals.e; }
   set carrega(value) {
-    let e_antics = this.orbitals.e; //electrons antics
-    let e_nous   = this.z - value;  //nou número electrons
+    let e_antics = this.orbitals.e;   //electrons antics
+    let e_nous   = this.z - value;    //nou número electrons
     let guany    = e_nous - e_antics; //guany d'electrons
     if(guany==0) return;
     if(guany>0){
