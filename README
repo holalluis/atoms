@@ -1,20 +1,18 @@
 # atoms : simulador de partícules
-- En desenvolupament des d'octubre de 2018
-- Objectiu 0: implementar conceptes físics i químics
-- Objectiu 1: recrear l'experiment d'Urei i Miller (1956)
-- Per comprovar que tot funciona, executar:
-```
+  - En desenvolupament des d'octubre de 2018
+  - Objectiu 0: implementar conceptes físics i químics
+  - Objectiu 1: recrear l'experiment d'Urei i Miller (1956)
+  - Per comprovar que tot funciona, executar:
+  ```
   node tests.js
-```
-
+  ```
 ## links utils
 - https://www.ptable.com/?lang=ca
 - http://www.ciaaw.org/
-
 ## Següents coses a implementar
 ### 1. Es poden fer
-  - [ara] electrons de valència
-  - [ara] promoció electrons 
+  - [fet] electrons de valència
+  - [fet] promoció electrons 
 
   * ÀTOMS SOLS
     * radi: buscar fòrmula en funció d'electrons protons i neutrons

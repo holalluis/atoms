@@ -3,7 +3,6 @@
   Capes:        1s  2s  2p  3s  3p  4s  3d   4p  5s  4d   5p  6s  4f   5d   6p  7s  5f   6d   7p  8s
   Electrons:     2   2   6   2   6   2  10    6   2  10    6   2  14   10    6   2  14   10    6   2
   Acumulats:     2   4  10  12  18  20  30   36  38  48   54  56  70   80   86  88 102  112  118 120
-
   Gasos nobles:
   He == 2   | 1s2
   Ne == 10  | 1s2 2s2 2p6
@@ -209,8 +208,8 @@ class Orbitals {
   }
 
   //mou un electro d'una capa plena i posa'l a un orbital buit d'energia més alta del mateix nivell energètic
-  //retorna si ha tingut èxit o no
   //exemple típic: (3s) [1 1] (3p) [1 0][1 0][0 0] --> (3s) [1 0] (3p) [1 0][1 0][1 0]
+  //retorna si ha tingut èxit o no
   //nota: de moment només es promociona un electró de la capa s a la capa p del mateix nivell
   promociona_electro(){
     //recorre nivell 2 al 7
@@ -248,9 +247,11 @@ class Orbitals {
     return electrons;
   }
 
-  //guanya 1 electró TODO: investigar sobre la càrrega màxima d'un àtom
+  //guanya 1 electró
+  //TODO: investigar sobre la càrrega màxima d'un àtom
   guanya_electro(){
-    let e=this.electrons.find(e=>e.val==0); //busca el primer electró que val 0
+    //busca el primer electró que val 0
+    let e=this.electrons.find(e=>e.val==0);
     e.val=1;
     this.e++;
     return e;
@@ -277,12 +278,11 @@ class Orbitals {
     return (nobles.indexOf(this.e)+1)?true:false;
   }
 
-  //comprova octets propers
+  //comprova octets propers d'un àtom que no té octet
   get octets_propers(){
+    if(this.octet) return false;
     let octets={};  //octets propers
     let opcions={}; //opcions per obtenir octet
-    //comprova si està entre octets
-    if(this.octet) return false;
     let nobles=[0,2,10,18,36,54,86,118];//He Ne Ar Kr Xe Rn Og
     for(let i=0;i<7;i++){
       if(nobles[i]<this.e && this.e<nobles[i+1]){

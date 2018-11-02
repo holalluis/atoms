@@ -1,5 +1,5 @@
 /*
-  classe Punt 3D
+  Classe Punt
   - no té cap dependència
 */
 
@@ -8,7 +8,7 @@ class Punt{
     this.x=x||0;//coordenada x
     this.y=y||0;//coordenada y
     this.z=z||0;//coordenada z
-  }
+  };
 
   //calcula distància entre 2 punts
   distancia(punt){
@@ -16,7 +16,7 @@ class Punt{
     let y=punt.y-this.y;
     let z=punt.z-this.z;
     return Math.sqrt(x*x + y*y + z*z);
-  }
+  };
 }
 
 module.exports=Punt;

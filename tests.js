@@ -20,7 +20,6 @@ let Atom     = require('./atom.js');
   //let vc=va.suma(vb);  print(vc); //vector
   //vc=va.resta(vb);     print(vc); //vector
   //vc=va.multiplica(2); print(vc); //vector
-  //vc=va.divideix(2);   print(vc); //vector
   //vc=va.prod_esc(vb);  print('Prod esc (2,0,1)·(1,-1,3): '+vc); //float
   //vc=va.prod_vec(vb);  print(vc); //vector
   //vc=va.modul;         print('Modul de (3,-1,4): '+vc); //float
@@ -71,10 +70,10 @@ let Atom     = require('./atom.js');
   //let F =new Atom(9);  print(F .orbitals.valencia);
   //let Cl=new Atom(17); print(Cl.orbitals.valencia);
 
-  let at=new Atom(11);
+  //let at=new Atom(11);
   //print(at.element);
   //print('Q='+at.carrega);
-  print(at.orbitals.toString());
+  //print(at.orbitals.toString());
   //if(at.orbitals.promociona_electro()) print(at.orbitals.toString());
   //print(at.orbitals.nivell_valencia);
   //print('octet: '+at.orbitals.octet);
@@ -83,8 +82,14 @@ let Atom     = require('./atom.js');
   //print(at.orbitals.octets_propers);
   //print(at.orbitals.guanya_electro());
   //print(at.orbitals.toString());
-  at.carrega++;
+  //at.carrega++;
   //print('Q='+at.carrega);
-  print(at.orbitals.toString());
+  //print(at.orbitals.toString());
+
+  let at;
+  for(let i=1;i<119;i++){
+    at = new Atom(i);
+    console.log(at.orbitals.toString());
+  }
 
   process.exit();

@@ -1,5 +1,6 @@
 /* 
-  classe Vector 
+  Classe Vector 
+  Exemples de vectors: forces
   - no té dependències
 */
 
@@ -8,15 +9,15 @@ class Vector {
     this.x=x||0;//component x
     this.y=y||0;//component y
     this.z=z||0;//component z
-  }
+  };
 
   //suma i resta 2 vectors
-  suma (vec){ return new Vector(this.x+vec.x, this.y+vec.y, this.z+vec.z);} //vector + vector = vector
-  resta(vec){ return new Vector(this.x-vec.x, this.y-vec.y, this.z-vec.z);} //vector - vector = vector
+  suma (vec){return new Vector(this.x+vec.x, this.y+vec.y, this.z+vec.z);} //vector + vector = vector
+  resta(vec){return new Vector(this.x-vec.x, this.y-vec.y, this.z-vec.z);} //vector - vector = vector
 
-  //multiplicació i divisió per un escalar
-  multiplica(esc){ return new Vector(this.x*esc, this.y*esc, this.z*esc);} //vector * escalar  = vector
-  divideix  (esc){ return new Vector(this.x/esc, this.y/esc, this.z/esc);} //vector / escalar  = vector
+  //multiplicació per un escalar
+  //divisió es pot fer fent this.multiplica(1/esc);
+  multiplica(esc){return new Vector(this.x*esc, this.y*esc, this.z*esc);} //vector * escalar  = vector
 
   //producte escalar i vectorial entre 2 vectors
   prod_esc(vec){ return (vec.x*this.x + vec.y*this.y + vec.z*this.z);}                                                //vector · vector = escalar
@@ -24,7 +25,7 @@ class Vector {
 
   //modul i norma
   get modul(){ return Math.sqrt(this.x*this.x+this.y*this.y+this.z*this.z);} //llargada/magnitud d'un vector
-  get norma(){ return this.divideix(this.modul);}                            //normalitza vector per la seva llargada
+  get norma(){ return this.multiplica(1/this.modul);}                            //normalitza vector per la seva llargada
 }
 
 module.exports=Vector;

@@ -1,11 +1,9 @@
 /*
-  classe Atom
+  Classe Atom
   depèn de:
-    - Orbitals
-    - Punt
+    - Orbitals */let Orbitals = require('./orbitals.js');/*
+    - Punt     */let Punt     = require('./punt.js');    /*
 */
-let Orbitals = require('./orbitals.js');
-let Punt     = require('./punt.js');
 
 class Atom {
   constructor(z, n, position){
@@ -15,9 +13,10 @@ class Atom {
     if(z>118) throw "Element z="+z+" desconegut";
     this.z=z||0;
 
-    //símbol,nom, propietats, massa
-    //https://www.ptable.com/?lang=ca# http://www.ciaaw.org/atomic-weights.htm CIAAW. Isotopic compositions of the elements 2017.
-    //"mass" és la mitjana ponderada entre isòtops
+    //element: símbol, nom, massa
+    //https://www.ptable.com/
+    //http://www.ciaaw.org/atomic-weights.htm | CIAAW. Isotopic compositions of the elements 2017.
+    //"mass" és la mitjana ponderada entre isòtops i la seva abundància a la natura
     this.element=[
       //fila1
         {symbol:"" ,  name:"",            mass:0        }, // 0 (index 0: atom buit)
@@ -149,12 +148,12 @@ class Atom {
 
     //NEUTRONS
     this.n=n||0;
-    if(this.n==0)this.n=Math.round(this.element.mass)-this.z;
+    if(this.n==0) this.n=Math.round(this.element.mass)-this.z;
 
-    //ELECTRONS
-    this.orbitals=new Orbitals(this.z); //inicia amb z electrons
+    //ELECTRONS: inicia amb z electrons
+    this.orbitals=new Orbitals(this.z);
 
-    //POSICIÓ
+    //POSICIÓ: posició del nucli
     this.position=position||new Punt(0,0,0);
   };
 
@@ -215,3 +214,22 @@ class Atom {
 }
 
 module.exports=Atom;
+
+Atom.prototype.radi=function(z,n,e){
+  //obtenir radi atòmic en funció de protons, neutrons i electrons
+  //a la taula periòdica
+    //el radi augmenta cap avall        (columnes==grups)
+    //el radi augmenta cap a l'esquerra (files==períodes)
+  //resum
+  //  radi de van der waals
+  //  radi iònic
+  //  radi covalent
+  //  radi metàl·lic
+  //  radi de bohr
+}
+
+//energia
+  //cinètica
+  //potencial elèctrica
+  //potencial magnètica
+  //potencial gravitatòria
