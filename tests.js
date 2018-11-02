@@ -72,8 +72,8 @@ let Atom     = require('./atom.js');
   //let Cl=new Atom(17); print(Cl.orbitals.valencia);
 
   let at=new Atom(11);
-  print(at.element);
-  print('Q='+at.carrega);
+  //print(at.element);
+  //print('Q='+at.carrega);
   print(at.orbitals.toString());
   //if(at.orbitals.promociona_electro()) print(at.orbitals.toString());
   //print(at.orbitals.nivell_valencia);
@@ -84,7 +84,7 @@ let Atom     = require('./atom.js');
   //print(at.orbitals.guanya_electro());
   //print(at.orbitals.toString());
   at.carrega++;
-  print('Q='+at.carrega);
+  //print('Q='+at.carrega);
   print(at.orbitals.toString());
 
   process.exit();
