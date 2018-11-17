@@ -1,6 +1,5 @@
 /*
   Classe Punt
-  - no té cap dependència
 */
 
 class Punt{
@@ -17,15 +16,8 @@ class Punt{
     let z=punt.z-this.z;
     return Math.sqrt(x*x + y*y + z*z);
   };
-}
+
+  toString(){ return `(${this.x},${this.y},${this.z})`; }
+};
 
 module.exports=Punt;
-
-/*
-test:
-  let p=new Punt(3,4,12);
-  console.log(p);
-  //-> Punt { x: 3, y: 4, z: 12 }
-  console.log(p.distancia(new Punt(0,0,0)))
-  //-> 13
-  */

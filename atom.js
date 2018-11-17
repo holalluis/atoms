@@ -1,25 +1,24 @@
 /*
   Classe Atom
   depèn de:
-    - Orbitals */let Orbitals = require('./orbitals.js');/*
-    - Punt     */let Punt     = require('./punt.js');    /*
+    - assert   */const assert   = require('assert');       /*
+    - Orbitals */const Orbitals = require('./orbitals.js');/*
+    - Punt     */const Punt     = require('./punt.js');    /*
 */
 
-class Atom {
+class Atom{
   constructor(z, n, position){
-    //PROTONS. Nombre zatòmic
-    if(typeof(z)!='number') throw "Nombre atòmic no és un número";
-    if(z<=0) throw "Nombre atòmic "+z+" il·legal";
-    if(z>118) throw "Element z="+z+" desconegut";
+    //PROTONS - nombre zatòmic
     this.z=z||0;
+    assert(this.z>=0 && this.z<=118, `Element "z=${z}" desconegut`);
 
-    //element: símbol, nom, massa
+    //element: {símbol, nom, mass}
     //https://www.ptable.com/
     //http://www.ciaaw.org/atomic-weights.htm | CIAAW. Isotopic compositions of the elements 2017.
     //"mass" és la mitjana ponderada entre isòtops i la seva abundància a la natura
     this.element=[
       //fila1
-        {symbol:"" ,  name:"",            mass:0        }, // 0 (index 0: atom buit)
+        {symbol:"" ,  name:"",            mass:0        }, // 0 (atom buit)
         {symbol:"H" , name:"Hidrogen",    mass:1.0080   }, // 1
         {symbol:"He", name:"Heli",        mass:4.0026   }, // 2
       //fila2
@@ -147,8 +146,9 @@ class Atom {
     ][z];
 
     //NEUTRONS
-    this.n=n||0;
+    this.n = isNaN(n) ? 0 : n;
     if(this.n==0) this.n=Math.round(this.element.mass)-this.z;
+    assert(this.n>=0 && this.n<178, `Nombre de neutrons "n=${this.n}" impossible`); //nombre màxim de neutrons: Og,Ts,Lv = 177
 
     //ELECTRONS: inicia amb z electrons
     this.orbitals=new Orbitals(this.z);
@@ -196,25 +196,24 @@ class Atom {
   };
 
   //get set càrrega elèctrica
-  get carrega(){ return this.z - this.orbitals.e; }
+  get carrega(){return this.z - this.orbitals.e;};
   set carrega(value) {
     let e_antics = this.orbitals.e;   //electrons antics
-    let e_nous   = this.z - value;    //nou número electrons
-    let guany    = e_nous - e_antics; //guany d'electrons
+    let e_nous   = this.z - value;    //electrons nous
+    let guany    = e_nous - e_antics; //guany (diferència)
     if(guany==0) return;
     if(guany>0){
-      //intenta guanyar electrons
       for(let i=0;i<guany;i++) this.orbitals.guanya_electro();
     }else{
-      //intenta perdre electrons
-      let guany_abs=Math.abs(guany);
-      for(let i=0;i<guany_abs;i++) this.orbitals.perd_electro();
+      guany=Math.abs(guany);
+      for(let i=0;i<guany;i++) this.orbitals.perd_electro();
     }
   };
 }
 
 module.exports=Atom;
 
+//zona de proves
 Atom.prototype.radi=function(z,n,e){
   //obtenir radi atòmic en funció de protons, neutrons i electrons
   //a la taula periòdica
@@ -226,10 +225,14 @@ Atom.prototype.radi=function(z,n,e){
   //  radi covalent
   //  radi metàl·lic
   //  radi de bohr
-}
+};
 
-//energia
-  //cinètica
-  //potencial elèctrica
-  //potencial magnètica
-  //potencial gravitatòria
+//energia total estructura
+Atom.energia={
+  cinètica:0,       //"velocitat" = 1/2*m*v^2
+  potencial:{
+    elèctrica:0,    //"mogut per un camp elèctric"
+    magnètica:0,    //"atret per un iman"
+    gravitatòria:0, //"alçada"
+  },
+};

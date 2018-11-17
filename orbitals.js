@@ -1,4 +1,8 @@
-/* 
+/*
+  Classe Orbitals
+  depèn de:
+    - assert */const assert = require('assert');/*
+
   Classe per estructura electrònica àtoms (orbitals)
   Capes:        1s  2s  2p  3s  3p  4s  3d   4p  5s  4d   5p  6s  4f   5d   6p  7s  5f   6d   7p  8s
   Electrons:     2   2   6   2   6   2  10    6   2  10    6   2  14   10    6   2  14   10    6   2
@@ -14,7 +18,7 @@
 */
 
 class Electro {
-  constructor(n,l,m,s, val){
+  constructor(n,l,m,s,val){
     //números quàntics n,l,m,s
     this.n=n;        //nivell:   1-7
     this.l=l;        //capa:     s,p,d,f == [0,1,2,3]
@@ -27,13 +31,12 @@ class Electro {
 class Orbitals {
   constructor(e){
     //e: nombre electrons
-    this.e=e;
-    if(typeof(e) != "number") throw "Nombre electrons no és un número";
-    if(e<0)                   throw "Nombre electrons negatiu";
+    assert(e>0, "Nombre d'electrons negatiu");
 
     //TOTS els electrons possibles ordenats per nivell d'energia
     //diagrama de Möeller i regla de Hund
     //1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p 7s 5f 6d 7p //8s
+    //nota: no es tenen en compte les 22 excepcions (veure 'excepcions_orbitals.txt') TBD
     this.electrons=[
       //          nivell, capa, magnetic, spin
       //          n  l   m  s   //layer=['s','p','d','f'] -> e.g. layer[0] -> 's'
@@ -159,8 +162,8 @@ class Orbitals {
       //new Electro(8, 0,  0, 1), //8s1
     ];
 
-    //omple orbitals
-    for(let i=0;i<this.e;i++){ this.electrons[i].val = 1; }
+    //omple electrons
+    for(let i=0;i<e;this.electrons[i++].val=1){}
 
     /*estructura antiga nivells i capes: 1-7: problema: ordre electrons per nivell energètic
     this.nivells={ //n,l,m,s: nivell, capa, orbital, spin
@@ -197,8 +200,9 @@ class Orbitals {
 
   //compta electrons
   compta(nivell, capa, magnetic){
-    //nivell: <Int> 1-7
-    //capa:   <Int> {0,1,2,3} || <String> {'s','p','d','f'}
+    //nivell: <int> 1-7
+    //capa:   <int> {0,1,2,3} || <string> {'s','p','d','f'}
+    //magnetic (opcional) <int>
     if(typeof capa == 'string') capa = ['s','p','d','f'].indexOf(capa);
     if(typeof magnetic === "undefined"){
       return this.electrons.filter(e=>{return (e.val && nivell==e.n && capa==e.l)}).length;
@@ -231,6 +235,9 @@ class Orbitals {
     return false;
   }
 
+  //nombre electrons totals
+  get e(){return this.electrons.filter(e=>e.val).length;}
+
   /*ELECTRONS DE VALÈNCIA*/
   //nivell dels electrons més exteriors
   get nivell_valencia(){ return Math.max(...this.electrons.filter(e=>e.val).map(e=>e.n)); };
@@ -248,12 +255,10 @@ class Orbitals {
   }
 
   //guanya 1 electró
-  //TODO: investigar sobre la càrrega màxima d'un àtom
   guanya_electro(){
-    //busca el primer electró que val 0
+    //busca el primer electró buit
     let e=this.electrons.find(e=>e.val==0);
     e.val=1;
-    this.e++;
     return e;
   }
   
@@ -265,9 +270,8 @@ class Orbitals {
       console.warn('Un àtom sense electrons ha intentat perdre un electró');
       return false;
     }
-    let e = electrons[electrons.length-1];
+    let e = electrons[electrons.length-1]; //electro més extern
     e.val=0;
-    this.e--;
     return e;
   }
 
@@ -284,22 +288,23 @@ class Orbitals {
     let octets={};  //octets propers
     let opcions={}; //opcions per obtenir octet
     let nobles=[0,2,10,18,36,54,86,118];//He Ne Ar Kr Xe Rn Og
+    let e=this.e; //nombre actual electrons
+
     for(let i=0;i<7;i++){
-      if(nobles[i]<this.e && this.e<nobles[i+1]){
-        octets={  prev: nobles[i], post: nobles[i+1]};
-        opcions={ donar:this.e - octets.prev, captar:octets.post - this.e};
-        return {electrons:this.e, octets, opcions};
+      if(nobles[i]<e && e<nobles[i+1]){
+        octets ={ prev: nobles[i], post: nobles[i+1]};
+        opcions={ donar:e - octets.prev, captar:octets.post - e};
+        return {electrons:e, octets, opcions};
         break;
       }
     }
-    throw 'error';
+    throw `Electrons: ${e}`;
   }
 
   /*to string*/
   toString(){
     let str=`Configuració electrònica: ${this.e} electrons\n`;
-    str+="  Octet: "+this.octet+'\n';
-
+    //str+="  Octet: "+this.octet+'\n';
     //recorre les capes i compta els electrons de cada orbital
     ['1s','2s','2p','3s','3p','4s','3d','4p','5s','4d','5p','6s','4f','5d','6p','7s','5f','6d','7p'].forEach(capa=>{
       let n=parseInt(capa[0]);

@@ -2,14 +2,14 @@
   - En desenvolupament des d'octubre de 2018
   - Objectiu 0: implementar conceptes físics i químics
   - Objectiu 1: recrear l'experiment d'Urei i Miller (1956)
-  - Per comprovar que tot funciona, executar:
-  ```
-  node tests.js
-  ```
+
 ## links utils
 - https://www.ptable.com/?lang=ca
 - http://www.ciaaw.org/
+
 ## Següents coses a implementar
+  - organitzar/separar tests
+
 ### 1. Es poden fer
   - [fet] electrons de valència
   - [fet] promoció electrons 
@@ -51,7 +51,8 @@
     - gravetat
   - llum / fotons
   - gui
+
 ### 3. No importa si es fa més endavant
-  - isotops (=assignar número diferent de neutrons en funció de l'atzar relacionat amb l'abundància natural observada)
+  - isotops (=assignar número de neutrons en funció de l'abundància natural observada
 
 vim: ft=markdown
