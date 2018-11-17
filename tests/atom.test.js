@@ -41,3 +41,5 @@ for(let i=1;i<119;i++){
   console.log(a.element);
   console.log(a.orbitals.toString());
 }
+
+//throw 'error intencionat'

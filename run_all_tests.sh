@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #Executa tots els tests
+cd tests
 
 #recorre els fitxers *.test.js
 for file in $(ls *.test.js);do
