@@ -1,6 +1,4 @@
-/*
-  Ray tracing
-*/
+/* Ray tracing */
 #include <stdio.h>
 #include <math.h>
 #include <strings.h>
@@ -68,11 +66,11 @@ void defineixEscena(){
       a = vx*vx + vy*vy + vz*vz;
       b = 2*(vx*(x0-xE) + vy*(y0-yE) + vz*(z0-zE));
       c = powf(x0-xE,2) + powf(y0-yE,2) + powf(z0-zE,2) - R*R;
-      discriminant = b*b - 4*a*c; 
+      discriminant = b*b - 4*a*c;
       if(discriminant >= 0){
         p.hit = true;
         //calcula les 2 solucions
-        d_1 = (-b + sqrt(discriminant))/(2*a); 
+        d_1 = (-b + sqrt(discriminant))/(2*a);
         d_2 = (-b - sqrt(discriminant))/(2*a);
         //calcula el punt més proxim de les dues solucions
         if(d_1 < d_2){
@@ -93,16 +91,16 @@ void defineixEscena(){
         }
       }
     }
-    return p; 
+    return p;
   }
-  
+
   Color calculaColor(Punt p, Esfera e, Punt llum){
     // color = ambient + difus + especular
       Color c(0,0,0);
     //ambient
       c = c + e.color*0.65;
     //difusa
-      //calculem la normal 
+      //calculem la normal
       Vector normal(e.centre, p);
       //normal.normalitzar();
       //calculem el vector llum-interseccio
@@ -131,9 +129,9 @@ void defineixEscena(){
     glOrtho(0,w,0,h,-w,w);
     glMatrixMode(GL_MODELVIEW);
     ample=h;
-    llarg=w;  
+    llarg=w;
   }
-  
+
   void rayTracing(){
     int i,j;
     // tira rajos des de la càmera a tots els pixels
@@ -142,12 +140,12 @@ void defineixEscena(){
     k=0;
     for(i=0;i<ample;i++){
     for(j=0;j<llarg;j++){
-      //punt pixel, vector pixel-càmera, raig 
+      //punt pixel, vector pixel-càmera, raig
       Punt pix (i-ample/2,j-llarg/2,2200);
       Vector vector (camera, pix);
       vector.normalitzar();
       Recta raig(camera, vector);
-      p = intersecta(raig, escena);   
+      p = intersecta(raig, escena);
       if(p.hit){
         colors[k] = calculaColor (p, escena.esferaActual, llum );
         punts[k] = p;
@@ -164,7 +162,7 @@ void defineixEscena(){
   void render2d(void){
     int i;
     rayTracing();
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT); 
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     glTranslated(ample/2, llarg/2, 0);
     //dibuixa pixels
@@ -172,7 +170,7 @@ void defineixEscena(){
     glBegin(GL_POINTS);
       for(i=0;i<=k;i++){
         glColor3f(colors[i].R, colors[i].G, colors[i].B);
-        glVertex2f(punts[i].x, punts[i].y); //punts[i].z);  
+        glVertex2f(punts[i].x, punts[i].y); //punts[i].z);
       }
     glEnd();
     //dibuixa el focus
@@ -195,13 +193,13 @@ void defineixEscena(){
       case 'd': llum.x += dist; break;
       case 'q': llum.z += dist; break;
       case 'e': llum.z -= dist; break;
-      
-      case 'i': escena.esferes[i].centre.y += dist; break; 
-      case 'k': escena.esferes[i].centre.y -= dist; break; 
-      case 'j': escena.esferes[i].centre.x -= dist; break; 
-      case 'l': escena.esferes[i].centre.x += dist; break; 
-      case 'u': escena.esferes[i].centre.z += dist; break; 
-      case 'o': escena.esferes[i].centre.z -= dist; break; 
+
+      case 'i': escena.esferes[i].centre.y += dist; break;
+      case 'k': escena.esferes[i].centre.y -= dist; break;
+      case 'j': escena.esferes[i].centre.x -= dist; break;
+      case 'l': escena.esferes[i].centre.x += dist; break;
+      case 'u': escena.esferes[i].centre.z += dist; break;
+      case 'o': escena.esferes[i].centre.z -= dist; break;
     }
     printf("Tecla: %c\n",key);
     printf("\033[A");
@@ -211,14 +209,14 @@ void defineixEscena(){
 /*main*/
 int main(int argc, char **argv){
   defineixEscena();
-  glutInit(&argc,argv);  
+  glutInit(&argc,argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB| GLUT_DEPTH);
   glutInitWindowPosition(100,100);
   glutInitWindowSize(ample,llarg);
   glutCreateWindow("Ray Tracing");
   glutKeyboardFunc(keyboard);
   glutReshapeFunc(reshape);
-  glutDisplayFunc(render2d);  
+  glutDisplayFunc(render2d);
   glutMainLoop();//start rendering
   return 0;
 }
