@@ -1,50 +1,8 @@
-#include<stdio.h>
-#include<stdlib.h>
+/*atom.c*/
+#include "atom.h"
 
-//constants
-#define MAX_PROTONS 118 //Og 118
-
-//estructura àtom
-typedef struct {
-  unsigned short p; //nombre atòmic de 0 a 119
-  unsigned short n; //nombre atòmic
-} Atom;
-
-//prototips àtom
-Atom new_atom(unsigned short p, unsigned short n); //constructor
-void print_atom(Atom a);
-void modify_atom(Atom *a, unsigned short p, unsigned short n);
-
-int main(){
-  Atom a = new_atom(1, 0);
-
-  //quants bytes ocupa un Atom
-  printf("sizeof(Atom) = %lu\n", sizeof(Atom));
-
-  //mostra els valors rgb, modifica'ls
-  print_atom(a);
-  modify_atom(&a, 2, 2);
-  print_atom(a);
-
-  //creem un array de 1000 atoms
-  Atom *molecula = malloc(1000*sizeof(Atom));
-
-  //canviem el nombre atomic de l'àtom nº 25
-  molecula[25].p = 25;
-  molecula[25].n = 25;
-  print_atom(molecula[25]);
-
-return 0;}
-
-Atom new_atom(unsigned short p, unsigned short n){
-  Atom a;
-  a.p = p;
-  a.n = n;
-  return a;
-}
-
-void print_atom(Atom a){
-  const char *noms_atoms[MAX_PROTONS]={
+void print_atom(Atom *a){
+  const char *noms_atoms[MAX_PROTONS+1]={
     "  -Empty",
     "H -Hidrogen",
     "He-Heli",
@@ -165,11 +123,7 @@ void print_atom(Atom a){
     "Ts-Tennessine",
     "Og-Oganesson",
   };
-  printf("Atom{p:%d, n:%d, nom:'%s'}\n", a.p, a.n, noms_atoms[a.p]);
-}
 
-void modify_atom(Atom *a, unsigned short p, unsigned short n){
-  a->p = p;
-  a->n = n;
+  printf("Atom{p:%d, n:%d, nom:'%s'} @%p\n",
+    a->p, a->n, noms_atoms[a->p], a);
 }
-

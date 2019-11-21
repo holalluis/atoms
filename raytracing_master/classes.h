@@ -19,7 +19,7 @@ class Material{public:
   //constructors
   Material(){}
   Material(float _kd, float _ks){kd=_kd;ks=_ks;}
-};	
+};
 
 class Recta{public:
   //per fer una recta necessitem un punt d'inici i un vector director
